@@ -3,7 +3,6 @@ from rest_framework import serializers
 from .models import Product, Stock, StockProduct
 
 class ProductSerializer(serializers.ModelSerializer):
-    title = serializers.CharField(max_length=60)
 
     class Meta:
         model = Product
@@ -11,8 +10,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductPositionSerializer(serializers.ModelSerializer):
-    quantity = serializers.IntegerField(min_value=1)
-    price = serializers.DecimalField(max_digits=18, decimal_places=2, min_value=0)
 
     class Meta:
         model = StockProduct
@@ -24,7 +21,7 @@ class StockSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Stock
-        fields = ['address', 'positions']
+        fields = ['id', 'address', 'positions']
 
     def create(self, validated_data):
         positions = validated_data.pop('positions')
